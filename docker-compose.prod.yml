@@ -1,0 +1,57 @@
+# Self-hosted, single-server production stack:
+#   nginx (port 80) -> serves the built frontend, proxies /api/* to backend
+#   backend (internal only) -> gunicorn + uvicorn workers
+#   db -> PostgreSQL with a persistent volume
+#
+# Usage:
+#   cp .env.example .env    # fill in real SECRET_KEY, ANTHROPIC_API_KEY,
+#                            # ALLOWED_ORIGINS=https://yourdomain.com, etc.
+#   docker compose -f docker-compose.prod.yml up --build -d
+#
+# This does NOT set up HTTPS. Put this behind a reverse proxy that
+# terminates TLS (e.g. Caddy, or nginx+certbot on the host), or use a
+# platform (Railway/Render/Fly.io) that provides HTTPS for you — see
+# DEPLOYMENT.md.
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ai_company
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/ai_company
+    depends_on:
+      db:
+        condition: service_healthy
+    # No ports published to the host — only nginx talks to it, over the
+    # internal Docker network, at http://backend:8000
+
+  nginx:
+    build:
+      context: .
+      dockerfile: deploy/frontend.Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  db_data:

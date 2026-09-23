@@ -1,0 +1,317 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --ink: #1B2430;
+  --ink-soft: #4A5568;
+  --bg: #EDEFF3;
+  --surface: #FFFFFF;
+  --sidebar: #171C26;
+  --sidebar-text: #B9C2D0;
+  --sidebar-active: #EDEFF3;
+  --accent: #C77D2E;
+  --accent-soft: #F1DFC8;
+  --line: #D8DCE3;
+  --success: #3F7D58;
+  --success-bg: #E5F1E9;
+  --danger: #B0413E;
+  --danger-bg: #F7E6E5;
+  --pending: #6B7280;
+  --pending-bg: #E9EAEC;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, .brand, .nav-link, button, .stat-value {
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+}
+
+a { color: inherit; }
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--sidebar);
+  color: var(--sidebar-text);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 17px;
+  color: #fff;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.brand-sub {
+  font-size: 12px;
+  color: #7A8496;
+  margin-bottom: 32px;
+}
+
+.nav-link {
+  display: block;
+  padding: 9px 12px;
+  border-radius: var(--radius);
+  color: var(--sidebar-text);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.nav-link:hover { background: #232A38; }
+
+.nav-link.active {
+  background: var(--accent);
+  color: #1A1300;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #2A3140;
+  font-size: 13px;
+}
+
+.sidebar-footer button {
+  background: none;
+  border: none;
+  color: var(--sidebar-text);
+  cursor: pointer;
+  padding: 0;
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+/* ---------- Main ---------- */
+.main {
+  flex: 1;
+  padding: 32px 40px;
+  max-width: 1100px;
+}
+
+.page-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.page-header p {
+  color: var(--ink-soft);
+  margin: 4px 0 0;
+  font-size: 14px;
+}
+
+/* ---------- Cards / panels (flat, hairline border — not the soft-shadow card kit) ---------- */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.stat-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.stat-label {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* ---------- Lists / tables ---------- */
+.list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  gap: 16px;
+}
+
+.list-row:last-child { border-bottom: none; }
+
+.list-title { font-weight: 600; font-size: 14.5px; }
+.list-sub { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+
+/* ---------- Status badges ---------- */
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.badge-completed { background: var(--success-bg); color: var(--success); }
+.badge-failed { background: var(--danger-bg); color: var(--danger); }
+.badge-needs_approval { background: var(--accent-soft); color: #8A5216; }
+.badge-pending, .badge-planning, .badge-running {
+  background: var(--pending-bg); color: var(--pending);
+}
+
+/* ---------- Forms ---------- */
+input, textarea, select {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  background: #fff;
+  color: var(--ink);
+}
+
+textarea { resize: vertical; min-height: 80px; }
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--ink-soft);
+}
+
+.field { margin-bottom: 14px; }
+
+button.btn {
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button.btn:hover { background: #0E141F; }
+button.btn:disabled { opacity: 0.5; cursor: default; }
+
+button.btn-accent { background: var(--accent); color: #1A1300; }
+button.btn-accent:hover { background: #B06E24; }
+
+button.btn-ghost {
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+}
+
+/* ---------- Login ---------- */
+.login-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sidebar);
+}
+
+.login-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  width: 340px;
+}
+
+.login-card h1 {
+  font-size: 19px;
+  margin: 0 0 4px;
+}
+
+.login-card p {
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  margin: 0 0 22px;
+}
+
+.error-text {
+  color: var(--danger);
+  font-size: 13px;
+  margin: 8px 0 0;
+}
+
+/* ---------- Execution timeline (numbering justified: it IS a sequence) ---------- */
+.timeline-step {
+  display: flex;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.timeline-step:last-child { border-bottom: none; }
+
+.timeline-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.artifact-block {
+  background: #FAFAF9;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  font-size: 13px;
+  white-space: pre-wrap;
+  margin-top: 8px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--ink-soft);
+}
