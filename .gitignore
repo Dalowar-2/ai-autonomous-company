@@ -66,3 +66,24 @@ Thumbs.db
 # Local deployment files
 # ==============================
 *.pid
+
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
